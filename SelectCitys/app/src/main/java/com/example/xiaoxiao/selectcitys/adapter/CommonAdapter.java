@@ -21,7 +21,7 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
     protected int mLayoutId;
     protected List<T> mDatas;
     protected LayoutInflater mInflater;
-    protected ViewGroup mRv;//add by zhangxutong 2016 08 05 ,for 点击事件为了兼容HeaderView FooterView 的Adapter
+    protected ViewGroup mRv;//点击事件为了兼容HeaderView FooterView 的Adapter
 
     private OnItemClickListener mOnItemClickListener;
 
@@ -44,12 +44,12 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         ViewHolder viewHolder = ViewHolder.get(mContext, null, parent, mLayoutId, -1);
-        //add by zhangxutong 2016 08 05 begin ,for 点击事件为了兼容HeaderView FooterView 的Adapter
+        // 点击事件为了兼容HeaderView FooterView 的Adapter
         if (null == mRv) {
             mRv = parent;
         }
         //setListener(parent, viewHolder, viewType);
-        //add by zhangxutong 2016 08 05 end ,for 点击事件为了兼容HeaderView FooterView 的Adapter
+        //点击事件为了兼容HeaderView FooterView 的Adapter
         return viewHolder;
     }
 
@@ -99,13 +99,13 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.updatePosition(position);
-        //add by zhangxutong 2016 08 05 begin 点击事件为了兼容HeaderView FooterView 的Adapter，所以在OnBindViewHolder里，其实性能没有onCreate好
+        // 点击事件为了兼容HeaderView FooterView 的Adapter，所以在OnBindViewHolder里，其实性能没有onCreate好
         setListener(position, holder);
-        //add by zhangxutong 2016 08 05 end
+        //
         convert(holder, mDatas.get(position));
     }
 
-    //add by zhangxutong 2016 08 05 begin 点击事件为了兼容HeaderView FooterView 的Adapter，所以在OnBindViewHolder里，其实性能没有onCreate好
+    // 点击事件为了兼容HeaderView FooterView 的Adapter，所以在OnBindViewHolder里，其实性能没有onCreate好
     protected void setListener(final int position, final ViewHolder viewHolder) {
         if (!isEnabled(getItemViewType(position))) return;
         viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
